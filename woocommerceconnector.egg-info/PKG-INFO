@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: woocommerceconnector
+Version: 1.7.0
+Summary: WooCommerce Connector for ERPNext
+Author: libracore
+Author-email: info@libracore.com
+Requires-Dist: woocommerce
+Requires-Dist: frappe
