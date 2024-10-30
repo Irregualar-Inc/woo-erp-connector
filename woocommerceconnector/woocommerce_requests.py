@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import _
-import json, math, time, pytz
 from .exceptions import woocommerceError
 from frappe.utils import get_request_session, get_datetime
 from woocommerce import API
@@ -176,7 +175,8 @@ def get_woocommerce_items(ignore_filter_conditions=False):
     }
     filter_conditions = filter_condition.split('&')
     for filter_condition in filter_conditions:
-        params[filter_condition.split('=')[0]] = filter_condition.split('=')[1]
+        if len(filter_condition.split('=')) > 1:
+            params[filter_condition.split('=')[0]] = filter_condition.split('=')[1]
 
     response = get_request_request('products', params=params)
     woocommerce_products.extend(response.json())
@@ -197,7 +197,8 @@ def get_woocommerce_item_variants(woocommerce_product_id):
     }
     filter_conditions = filter_condition.split('&')
     for filter_condition in filter_conditions:
-        params[filter_condition.split('=')[0]] = filter_condition.split('=')[1]
+        if len(filter_condition.split('=')) > 1:
+            params[filter_condition.split('=')[0]] = filter_condition.split('=')[1]
 
     response = get_request_request('products/{0}/variations'.format(woocommerce_product_id), params=params)
     woocommerce_product_variants.extend(response.json()) 
@@ -250,7 +251,8 @@ def get_woocommerce_customers(ignore_filter_conditions=False):
         }
         filter_conditions = filter_condition.split('&')
         for filter_condition in filter_conditions:
-            params[filter_condition.split('=')[0]] = filter_condition.split('=')[1]
+            if len(filter_condition.split('=')) > 1:
+                params[filter_condition.split('=')[0]] = filter_condition.split('=')[1]
 
         response = get_request_request('customers', params=params)
         woocommerce_customers.extend(response.json())
